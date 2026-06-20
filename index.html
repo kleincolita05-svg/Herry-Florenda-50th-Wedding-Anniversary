@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#8c6a2f" />
+  <title>Wedding QR Check-in</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="heroOverlay"></div>
+    <img id="couplePhoto" src="./assets/couple-placeholder.svg" alt="Celebrants photo" />
+    <div class="heroText">
+      <p class="eyebrow">Wedding Anniversary Guest Check-in</p>
+      <h1 id="eventTitle">The Wedding Anniversary of Celebrant One & Celebrant Two</h1>
+      <p id="eventMeta">Monday • Venue Name</p>
+    </div>
+  </header>
+
+  <main class="appShell">
+    <section class="topActions">
+      <button class="primaryAction" id="openScannerBtn">Scan Guest QR</button>
+      <button class="secondaryAction" id="openSearchBtn">Manual Search</button>
+      <button class="secondaryAction" id="openTablesBtn">View Tables</button>
+    </section>
+
+    <section class="statsGrid">
+      <article class="statCard">
+        <span>Total Guests</span>
+        <strong id="totalGuests">0</strong>
+      </article>
+      <article class="statCard">
+        <span>Checked In</span>
+        <strong id="checkedInGuests">0</strong>
+      </article>
+      <article class="statCard">
+        <span>Not Arrived</span>
+        <strong id="notArrivedGuests">0</strong>
+      </article>
+      <article class="statCard vip">
+        <span>Presidential Guests</span>
+        <strong id="vipGuests">0</strong>
+      </article>
+    </section>
+
+    <section id="scannerPanel" class="panel active">
+      <div class="panelHeader">
+        <h2>QR Scanner</h2>
+        <p>Use Android Chrome or desktop Chrome/Edge for best offline scanner support. Manual search remains available as backup.</p>
+      </div>
+
+      <div class="scannerBox">
+        <video id="preview" playsinline muted></video>
+        <div id="scannerStatus" class="scannerStatus">Scanner is not running.</div>
+      </div>
+
+      <div class="buttonRow">
+        <button id="startScannerBtn">Start Camera Scanner</button>
+        <button id="stopScannerBtn" class="ghost">Stop Scanner</button>
+      </div>
+
+      <div class="manualBox">
+        <label for="manualCode">Manual QR / Guest ID Entry</label>
+        <div class="inlineForm">
+          <input id="manualCode" placeholder="Example: WED-G001 or G001" />
+          <button id="manualLookupBtn">Find</button>
+        </div>
+      </div>
+
+      <div id="scanResult"></div>
+    </section>
+
+    <section id="searchPanel" class="panel">
+      <div class="panelHeader">
+        <h2>Manual Search</h2>
+        <p>Search by guest name, guest ID, table number, or guest type.</p>
+      </div>
+      <input id="searchInput" class="searchInput" placeholder="Search guest name, ID, table, VIP..." />
+      <div id="searchResults" class="resultsList"></div>
+    </section>
+
+    <section id="tablesPanel" class="panel">
+      <div class="panelHeader">
+        <h2>Table Overview</h2>
+        <p>Shows all assigned tables with check-in counts.</p>
+      </div>
+      <div id="tableCards" class="tableGrid"></div>
+      <div id="tableGuestList" class="tableGuestList"></div>
+    </section>
+
+    <section class="adminPanel">
+      <details>
+        <summary>Setup / Admin Tools</summary>
+
+        <div class="adminGrid">
+          <div>
+            <h3>Event Details</h3>
+            <label>Event Title</label>
+            <input id="eventTitleInput" />
+            <label>Event Meta</label>
+            <input id="eventMetaInput" />
+            <button id="saveEventBtn">Save Event Details</button>
+          </div>
+
+          <div>
+            <h3>Guest CSV Import</h3>
+            <p class="small">Required CSV headers: GuestID, GuestName, TableNumber, TableName, GuestType, Notes</p>
+            <input id="csvFile" type="file" accept=".csv" />
+            <button id="loadSampleBtn" class="ghost">Load Sample Guests</button>
+          </div>
+
+          <div>
+            <h3>Data Export</h3>
+            <button id="exportCsvBtn">Export Check-in CSV</button>
+            <button id="resetCheckinsBtn" class="danger">Reset Check-ins</button>
+          </div>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span id="offlineStatus">Checking app status...</span>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
